@@ -13,6 +13,15 @@ public class Aresta {
         this.distancia = distancia;
     }
 
+    public String OrigemOuDestino(Vertice v){
+        if(v.equals(this.origem)){
+            return  "O";
+        }else if(v.equals(this.destino)){
+            return "D";
+        }
+        return null;
+    }
+
     public String getValor() {
         return this.valor;
     }
