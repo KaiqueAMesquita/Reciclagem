@@ -24,8 +24,8 @@ public class aStar {
         grafo.addVertice(d.getValor());
         grafo.addVertice(e.getValor());
 
-        grafo.addAresta("AB", a, b, 1);
-        grafo.addAresta("AC", a, c, 4);
+        grafo.addAresta("AB", a, b, 4);
+        grafo.addAresta("AC", a, c, 2);
         grafo.addAresta("BC", b, c, 2);
         grafo.addAresta("BD", b, d, 5);
         grafo.addAresta("CD", c, d, 1);

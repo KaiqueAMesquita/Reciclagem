@@ -13,6 +13,8 @@ import java.util.Set;
 
 import org.w3c.dom.Node;
 
+import javax.swing.*;
+
 public class Grafo {
     private Vertice[] vertices;
     private Aresta[] arestas;
@@ -86,11 +88,11 @@ public class Grafo {
 
         Map<Vertice, Integer> heuristica = new HashMap<>();
         for (Vertice v : vertices) {
-            if (eVizinho(start, v)) {
-                heuristica.put(v, 2);
-            } else {
-                heuristica.put(v, 1);
-            }
+//            if (eVizinho(start, v)) {
+//                heuristica.put(v, 2);
+//            } else {
+//                heuristica.put(v, 1);
+//            }
 
         }
 
@@ -174,4 +176,67 @@ public class Grafo {
         }
         return caminho;
     }
+
+    public void desenharGrafo() {
+        GrafoPanel p = new GrafoPanel(this);
+        JFrame f = new JFrame();
+        f.setTitle( "Desenhando em Java" );
+        f.setContentPane( p );
+        f.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        f.pack();
+        f.setLocationRelativeTo( f );
+        f.setVisible( true );
+    }
+
+    public Vertice[] getVertices() {
+        return vertices;
+    }
+
+    public Aresta[] getArestas(){
+        return arestas;
+    }
+    public Vertice getVertice(int i){
+        return vertices[i];
+    }
+
+    public Aresta[] encontrarAresta(Vertice v1) {
+        ArrayList<Aresta> arestas1 = new ArrayList<Aresta>();
+
+        for (int i = 0; i < arestas.length; i++)
+            if (arestas[i].getOrigem().equals(v1)) {
+                arestas1.add(arestas[i]);
+
+            } else if (arestas[i].getDestino().equals(v1)) {
+
+
+                arestas1.add(arestas[i]);
+            }
+
+        return arestas1.toArray(new Aresta[0]);
+    }
+
+    public Aresta[] encontrarAresta(Vertice v1, Vertice v2) {
+        ArrayList<Aresta> arestas1 = new ArrayList<Aresta>();
+
+        for (int i = 0; i < arestas.length; i++)
+            if (arestas[i].getOrigem().equals(v1) && arestas[i].getDestino().equals(v2)) {
+                arestas1.add(arestas[i]);
+
+            } else if (arestas[i].getOrigem().equals(v2) && arestas[i].getDestino().equals(v1)) {
+
+
+                arestas1.add(arestas[i]);
+            }
+
+        return arestas1.toArray(new Aresta[0]);
+    }
+    public int getIndice(Vertice v){
+        for(int i = 0; i < vertices.length;i++){
+            if(v.equals(vertices[i])){
+                return i;
+            }
+        }
+        return -1;
+    }
+
 }
