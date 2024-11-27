@@ -19,7 +19,7 @@ public class Material {
         return this.tipo;
     }
 
-    public String pontoDeColeta() {
+    public String getPontoDeColeta() {
         return this.pontoDeColeta;
     }
 }
