@@ -7,7 +7,7 @@ import Grafo.Vertice;
 
 public class Main {
     public static void main(String[] args) {
-    Grafo grafo = new Grafo(5,6);
+    Grafo grafo = new Grafo(5,7);
 
         Vertice a = new Vertice("A");
         Vertice b = new Vertice("B");
@@ -22,13 +22,13 @@ public class Main {
         grafo.addVertice(d.getValor());
         grafo.addVertice(e.getValor());
 
-        grafo.addAresta("AB", a, b, 4);
-        grafo.addAresta("AC", a, c, 2);
-        grafo.addAresta("BC", b, c, 2);
-        grafo.addAresta("BD", b, d, 5);
-        grafo.addAresta("CD", c, d, 1);
-        grafo.addAresta("DE", d, e, 3);
-
+        grafo.addAresta("RUA J", a, b, 4);
+        grafo.addAresta("RUA A", a, c, 2);
+        grafo.addAresta("RUA V", b, c, 2);
+        grafo.addAresta("RUA T", b, d, 5);
+        grafo.addAresta("RUA S", c, d, 1);
+        grafo.addAresta("RUA Chama", d, e, 3);
+        grafo.addAresta("RUA Vartor", c, e, 7);
     grafo.desenharGrafo();
     }
 }

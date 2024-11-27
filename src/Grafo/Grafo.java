@@ -231,7 +231,7 @@ public class Grafo {
     }
     public int getIndice(Vertice v){
         for(int i = 0; i < this.vertices.length;i++){
-            if(v.equals(this.vertices[i])){
+            if(v.getValor() == vertices[i].getValor()){
                 return i;
             }
         }
