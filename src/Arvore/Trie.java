@@ -5,14 +5,17 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import Info.Material;
+
 public class Trie
 {
     // A classe NoTrie se encontra dentro da classe Trie para que ela possa ser estática
     // Ao ser estática, é possível realizar inserir filhos dentro de filhos sem uma atribuição formal no nó raiz
-    public static class NoTrie 
+    public static class NoTrie
     {
         public boolean FimDePalavra; // Determina se o nó atual é o fim da palavra
         public NoTrie filhos[]; // Armazena os filhos (outros nós) que o nó possui
+        public Material material;
     
         // Construtor do nó
         public NoTrie() 
@@ -42,9 +45,7 @@ public class Trie
     // ---------------------- ÁREA DOS MÉTODOS ----------------------
     // --------------------------------------------------------------
 
-    // Esse método não mostra a palavra buscada
-    // Implementar ArrayList para esse objetivo?
-    public boolean busca(String palavra)
+    public boolean existe(String palavra)
     {
         palavra = palavra.toLowerCase(); // Facilita a comparação
         NoTrie noAuxiliar = this.raiz; // Cria um segundo acesso ao nó raiz
@@ -74,32 +75,67 @@ public class Trie
         return false;
     }
 
-    public boolean insere(String palavra)
+    public String busca(String nome)
     {
-        palavra = palavra.toLowerCase(); // Facilita a comparação
+        nome = nome.toLowerCase(); // Facilita a comparação
+        NoTrie noAuxiliar = this.raiz; // Cria um segundo acesso ao nó raiz
 
-        if(busca(palavra)) // Caso a palavra já exista
+        for(int i = 0; i < nome.length(); i++)
+        {
+            // O charAt retorna o caractere na posição especificada. Ex: casa - nome.charAt(0) -> 'c'
+            // Essa subtração é referente aos bytes na lista ASCII, pois os caracteres estão no formato literal ('a')
+            // A letra 'a' possui valor 97, a 'b' 98 e assim por diante, ou seja, 'c' - 'a' = 99 - 97 =  2
+            // No exemplo da casa, isso resultaria no índice 2 para o vetor filhos (filhos[2])
+            if(noAuxiliar.filhos[nome.charAt(i) - 'a'] == null)
+            {
+                // Esse if é verdadeiro no caso de ser uma nome não existente no programa
+                return "Não há um material correspondente ao nome informado!";
+            }
+
+            // Indo de filho em filho, enquanto i for menor que o tamanho do nome
+            noAuxiliar = noAuxiliar.filhos[nome.charAt(i) - 'a'];
+        }
+
+        // Se o último filho visitado no laço de repetição for um nó e for a última letra da palavra
+        if((noAuxiliar != null) && (noAuxiliar.FimDePalavra == true))
+        {
+            return noAuxiliar.material.getNome() 
+            + "\nTipo: " + noAuxiliar.material.getTipo() 
+            + "\nPonto de coleta: " + noAuxiliar.material.getPontoDeColeta();
+        }
+
+        return "Material não encontrado!";
+    }
+
+    public boolean insere(String nome, Material material)
+    {
+        nome = nome.toLowerCase(); // Facilita a comparação
+
+        if(existe(nome)) // Caso a palavra já exista
         {
             return false;
         }
 
         NoTrie noAuxiliar = this.raiz; // Cria um segundo acesso ao nó raiz
 
-        for(int i = 0; i < palavra.length(); i++)
+        for(int i = 0; i < nome.length(); i++)
         {
-            // *Ver explicação no método busca
-            if(noAuxiliar.filhos[palavra.charAt(i) - 'a'] == null)
+            System.out.println(nome.charAt(i));
+
+            // *Ver explicação no método existe
+            if(noAuxiliar.filhos[nome.charAt(i) - 'a'] == null)
             {
                 // Caso não exista um nó na posição da letra informada, cria-se um
-                noAuxiliar.filhos[palavra.charAt(i) - 'a'] = new NoTrie();
+                noAuxiliar.filhos[nome.charAt(i) - 'a'] = new NoTrie();
             }
 
             // Visita o filho criado (ou existente)
-            noAuxiliar = noAuxiliar.filhos[palavra.charAt(i) - 'a'];
+            noAuxiliar = noAuxiliar.filhos[nome.charAt(i) - 'a'];
         }
 
         // Determinando que o último nó da palavra é a última letra dela
         noAuxiliar.FimDePalavra = true;
+        noAuxiliar.material = material;
 
         return true;
     }
@@ -108,7 +144,7 @@ public class Trie
     {
         palavra = palavra.toLowerCase(); // Facilita a comparação
 
-        if(!busca(palavra)) // Caso a palavra não exista
+        if(!existe(palavra)) // Caso a palavra não exista
         {
             JOptionPane.showMessageDialog(null, 
             "A palavra informada não existe no registro ou não está completa!");
@@ -135,6 +171,7 @@ public class Trie
         // Isso faz com que ela fique inacessível pelos outros métodos, que buscam por esse atributo
         noAuxiliarAnterior.filhos[indiceControle] = null;
 
+        JOptionPane.showMessageDialog(null, "Material removido com sucesso!");
         return true;
     }
 
