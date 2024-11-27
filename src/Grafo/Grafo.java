@@ -229,6 +229,32 @@ public class Grafo {
 
         return arestas1.toArray(new Aresta[0]);
     }
+
+
+    public boolean existeAresta(Vertice v1, Vertice v2) {
+        ArrayList<Aresta> arestas1 = new ArrayList<Aresta>();
+
+        for (int i = 0; i < this.arestas.length; i++)
+            if (this.arestas[i].getOrigem().equals(v1) && this.arestas[i].getDestino().equals(v2)) {
+                return true;
+
+            } else if (this.arestas[i].getOrigem().equals(v2) && this.arestas[i].getDestino().equals(v1)) {
+                return true;
+
+            }
+
+        return false;
+
+    }
+
+    public int getDistancia(Vertice v1, Vertice v2){
+        Aresta[] a = encontrarAresta(v1,v2);
+        if(a[0] != null) {
+            return a[0].getDistancia();
+        }else{
+            return -1;
+        }
+    }
     public int getIndice(Vertice v){
         for(int i = 0; i < this.vertices.length;i++){
             if(v.equals(this.vertices[i])){
