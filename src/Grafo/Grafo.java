@@ -48,27 +48,28 @@ public class Grafo {
 
         }
     }
-    // public ArrayList<Vertice> vizinhos(Vertice v){
-    // ArrayList<Vertice> vizinhos = new ArrayList<Vertice>();
-    // for(int i = 0; i < numVertices; i++){
-    // for(int j = 0; j < numArestas;j++){
-    // if(!arestas[j].getOrigem().equals(arestas[j].getDestino())){
+     public ArrayList<Vertice> vizinhos(Vertice v){
+     ArrayList<Vertice> vizinhos = new ArrayList<Vertice>();
+     for(int i = 0; i < numVertices; i++){
+     for(int j = 0; j < numArestas;j++){
+     if(!arestas[j].getOrigem().equals(arestas[j].getDestino())){
 
-    // if(v.equals(arestas[j].getOrigem()) &&
-    // !vizinhos.contains(arestas[j].getDestino())){
-    // vizinhos.add(arestas[j].getDestino());
-    // }else if(v.equals(arestas[j].getDestino()) &&
-    // !vizinhos.contains(arestas[j].getOrigem())){
-    // vizinhos.add(arestas[j].getOrigem());
+     if(v.equals(arestas[j].getOrigem()) &&
+     !vizinhos.contains(arestas[j].getDestino())){
+     vizinhos.add(arestas[j].getDestino());
+     }else if(v.equals(arestas[j].getDestino()) &&
+     !vizinhos.contains(arestas[j].getOrigem())){
+     vizinhos.add(arestas[j].getOrigem());
 
-    // }
-    // }
-    // }
+     }
+     }
+     }
 
-    // }
-    // return vizinhos;
+     }
+     return vizinhos;
 
-    // }
+     }
+
 
     public boolean eVizinho(Vertice v1, Vertice v2) {
         for (int i = 0; i < numArestas; i++) {
@@ -189,27 +190,25 @@ public class Grafo {
     }
 
     public Vertice[] getVertices() {
-        return vertices;
+        return this.vertices;
     }
 
     public Aresta[] getArestas(){
-        return arestas;
+        return this.arestas;
     }
     public Vertice getVertice(int i){
-        return vertices[i];
+        return this.vertices[i];
     }
 
     public Aresta[] encontrarAresta(Vertice v1) {
         ArrayList<Aresta> arestas1 = new ArrayList<Aresta>();
 
-        for (int i = 0; i < arestas.length; i++)
-            if (arestas[i].getOrigem().equals(v1)) {
-                arestas1.add(arestas[i]);
+        for (int i = 0; i < this.arestas.length; i++)
+            if (this.arestas[i].getOrigem().equals(v1)) {
+                arestas1.add(this.arestas[i]);
 
-            } else if (arestas[i].getDestino().equals(v1)) {
-
-
-                arestas1.add(arestas[i]);
+            } else if (this.arestas[i].getDestino().equals(v1)) {
+                arestas1.add(this.arestas[i]);
             }
 
         return arestas1.toArray(new Aresta[0]);
@@ -218,21 +217,21 @@ public class Grafo {
     public Aresta[] encontrarAresta(Vertice v1, Vertice v2) {
         ArrayList<Aresta> arestas1 = new ArrayList<Aresta>();
 
-        for (int i = 0; i < arestas.length; i++)
-            if (arestas[i].getOrigem().equals(v1) && arestas[i].getDestino().equals(v2)) {
-                arestas1.add(arestas[i]);
+        for (int i = 0; i < this.arestas.length; i++)
+            if (this.arestas[i].getOrigem().equals(v1) && this.arestas[i].getDestino().equals(v2)) {
+                arestas1.add(this.arestas[i]);
 
-            } else if (arestas[i].getOrigem().equals(v2) && arestas[i].getDestino().equals(v1)) {
+            } else if (this.arestas[i].getOrigem().equals(v2) && this.arestas[i].getDestino().equals(v1)) {
 
 
-                arestas1.add(arestas[i]);
+                arestas1.add(this.arestas[i]);
             }
 
         return arestas1.toArray(new Aresta[0]);
     }
     public int getIndice(Vertice v){
-        for(int i = 0; i < vertices.length;i++){
-            if(v.equals(vertices[i])){
+        for(int i = 0; i < this.vertices.length;i++){
+            if(v.getValor() == vertices[i].getValor()){
                 return i;
             }
         }
