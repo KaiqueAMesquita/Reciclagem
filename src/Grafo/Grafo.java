@@ -73,7 +73,7 @@ public class Grafo {
 
     public boolean eVizinho(Vertice v1, Vertice v2) {
         for (int i = 0; i < numArestas; i++) {
-            if (v1.equals(arestas[i].getOrigem()) && v2.equals(arestas[i].getDestino())) {
+            if (Objects.equals(v1.getValor(), arestas[i].getOValor()) && Objects.equals(v2.getValor(), arestas[i].getDValor())) {
                 return true;
             } else if (v1.equals(arestas[i].getDestino()) && v2.equals(arestas[i].getOrigem())) {
                 return true;
@@ -88,16 +88,18 @@ public class Grafo {
     public void rotaDeReciclagem(Vertice start, Vertice objetivo) {
 
         Map<Vertice, Integer> heuristica = new HashMap<>();
-        for (Vertice v : vertices) {
-//            if (eVizinho(start, v)) {
-//                heuristica.put(v, 2);
-//            } else {
-//                heuristica.put(v, 1);
-//            }
-
-        }
 
         List<Vertice> caminho = aStar(start, objetivo, heuristica);
+
+        for(Vertice v: vertices){
+          if(eVizinho(start, v)){
+              // Vizinhos recebem um valor heurístico menor (menos atrativo)
+                heuristica.put(v,3);
+            }else{
+              // Outros recebem um valor heurístico maior (mais atrativo)
+              heuristica.put(v,7);
+          }
+        }
 
         if (!caminho.isEmpty()) {
             System.out.println("Caminho encontrado: ");
@@ -110,9 +112,12 @@ public class Grafo {
         }
     }
 
+
     public List<Vertice> aStar(Vertice start, Vertice objetivo, Map<Vertice, Integer> heuristica) {
         // Map para rastrear o caminho
         Map<Vertice, Vertice> veioDe = new HashMap<>();
+
+
 
         // Map para os custos g(n)
         Map<Vertice, Integer> pontoG = new HashMap<>();
@@ -121,14 +126,18 @@ public class Grafo {
         // Map para os custos f(n)
         Map<Vertice, Integer> fScore = new HashMap<>();
 
-        // PriorityQueue para o conjunto aberto
+        // PriorityQueue para o conjunto aberto(lista de prioridade)
         PriorityQueue<Vertice> conjuntoAberto = new PriorityQueue<>(
+                //se v não estiver no mapa define com o maior custo
                 Comparator.comparingInt(v -> fScore.getOrDefault(v, Integer.MAX_VALUE)));
         conjuntoAberto.add(start);
 
+        //adiciona start a para os custos
         fScore.put(start, heuristica.getOrDefault(start, Integer.MAX_VALUE));
 
+        //roda até conjunto aberto não estar vazio
         while (!conjuntoAberto.isEmpty()) {
+            //pega o vertice e o retira da lista
             Vertice atual = conjuntoAberto.poll();
 
             // Verifica se o vertice atual é o objetivo
@@ -139,14 +148,16 @@ public class Grafo {
             // Explora os vizinhos
             for (Aresta a : getArestaDeSaida(atual)) {
                 Vertice vizinho = a.getDestino();
-                int tentativepontoG = pontoG.getOrDefault(atual, Integer.MAX_VALUE) + a.getDistancia();
+                //custo do caminho do nó inicial até este,
+                int tentativapontoG = pontoG.getOrDefault(atual, Integer.MAX_VALUE) + a.getDistancia();
 
-                if (tentativepontoG < pontoG.getOrDefault(vizinho, Integer.MAX_VALUE)) {
+                if (tentativapontoG < pontoG.getOrDefault(vizinho, Integer.MAX_VALUE)) {
                     // Atualiza os mapas de rastreamento
                     veioDe.put(vizinho, atual);
-                    pontoG.put(vizinho, tentativepontoG);
-                    fScore.put(vizinho, tentativepontoG + heuristica.getOrDefault(vizinho, Integer.MAX_VALUE));
+                    pontoG.put(vizinho, tentativapontoG);
+                    fScore.put(vizinho, tentativapontoG + heuristica.getOrDefault(vizinho, Integer.MAX_VALUE));
 
+                    //se o conjunto aberto não possuir o vizinho, adicione ele
                     if (!conjuntoAberto.contains(vizinho)) {
                         conjuntoAberto.add(vizinho);
                     }
@@ -158,23 +169,43 @@ public class Grafo {
         return new ArrayList<>();
     }
 
+    // Método para obter todas as arestas de saída de um vértice
     private List<Aresta> getArestaDeSaida(Vertice v) {
+        // Cria uma lista para armazenar as arestas de saída do vértice v
         List<Aresta> ArestaDeSaida = new ArrayList<>();
+
+        // Itera sobre todas as arestas existentes (presumivelmente armazenadas em um campo chamado 'arestas')
         for (Aresta a : arestas) {
+            // Verifica se a aresta não é nula e se o vértice de origem da aresta é o vértice atual v
             if (a != null && a.getOrigem().equals(v)) {
+                // Se a condição for verdadeira, a aresta é uma aresta de saída de v, então a adiciona à lista
                 ArestaDeSaida.add(a);
             }
         }
+
+        // Retorna a lista com todas as arestas de saída do vértice v
         return ArestaDeSaida;
     }
 
+    // Método para reconstruir o caminho percorrido a partir do mapa de rastreamento 'veioDe'
+// Este mapa mapeia cada vértice para o vértice de onde ele veio, ou seja, de onde ele foi alcançado.
     private List<Vertice> reconstruirCaminho(Map<Vertice, Vertice> veioDe, Vertice atual) {
+        // Cria uma lista para armazenar o caminho encontrado
         List<Vertice> caminho = new ArrayList<>();
+
+        // Adiciona o vértice final (atual) ao início da lista de caminho
         caminho.add(atual);
+
+        // Enquanto o vértice atual tiver um vértice anterior registrado no mapa 'veioDe'
         while (veioDe.containsKey(atual)) {
+            // Acha o vértice de onde o atual veio
             atual = veioDe.get(atual);
+
+            // Adiciona o vértice anterior ao início da lista de caminho (para reconstruir o caminho na ordem correta)
             caminho.add(0, atual);
         }
+
+        // Retorna a lista do caminho reconstruído, que contém os vértices na ordem do início até o objetivo
         return caminho;
     }
 
