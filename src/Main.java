@@ -1,9 +1,10 @@
 import java.io.File;
 
+import java.io.IOException;
 import java.util.*;
 
-import Grafo.Grafo;
-import Grafo.Vertice;
+import Arquivo.LeituraArquivo;
+import Grafo.*;
 
 public class Main {
     public static void main(String[] args) {
