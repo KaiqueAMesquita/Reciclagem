@@ -75,7 +75,7 @@ public class Trie
         return false;
     }
 
-    public String busca(String nome)
+    public Object busca(String nome)
     {
         nome = nome.toLowerCase(); // Facilita a comparação
         NoTrie noAuxiliar = this.raiz; // Cria um segundo acesso ao nó raiz
@@ -88,8 +88,8 @@ public class Trie
             // No exemplo da casa, isso resultaria no índice 2 para o vetor filhos (filhos[2])
             if(noAuxiliar.filhos[nome.charAt(i) - 'a'] == null)
             {
-                // Esse if é verdadeiro no caso de ser uma nome não existente no programa
-                return "Não há um material correspondente ao nome informado!";
+                // Esse if é verdadeiro no caso de ser um nome não existente no programa
+                return null;
             }
 
             // Indo de filho em filho, enquanto i for menor que o tamanho do nome
@@ -99,12 +99,13 @@ public class Trie
         // Se o último filho visitado no laço de repetição for um nó e for a última letra da palavra
         if((noAuxiliar != null) && (noAuxiliar.FimDePalavra == true))
         {
-            return noAuxiliar.material.getNome() 
-            + "\nTipo: " + noAuxiliar.material.getTipo() 
-            + "\nPonto de coleta: " + noAuxiliar.material.getPontoDeColeta();
+            // return noAuxiliar.material.getNome() 
+            // + "\nTipo: " + noAuxiliar.material.getTipo() 
+            // + "\nPonto de coleta: " + noAuxiliar.material.getPontoDeColeta();
+            return noAuxiliar.material;
         }
 
-        return "Material não encontrado!";
+        return null;
     }
 
     public boolean insere(String nome, Material material)
@@ -120,8 +121,6 @@ public class Trie
 
         for(int i = 0; i < nome.length(); i++)
         {
-            System.out.println(nome.charAt(i));
-
             // *Ver explicação no método existe
             if(noAuxiliar.filhos[nome.charAt(i) - 'a'] == null)
             {

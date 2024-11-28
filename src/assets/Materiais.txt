@@ -1,7 +1,3 @@
-Plastico, Reutilizavel, Ponto A
-Vidro, Reutilizavel, Ponto B
-Organico, Reutilizavel, Ponto C
-Papel higienico, Não Reutilizavel, Ponto M
-
-
-
+Plastico;Reutilizavel;D
+Vidro;Reutilizavel;B
+Organico;Reutilizavel;C
