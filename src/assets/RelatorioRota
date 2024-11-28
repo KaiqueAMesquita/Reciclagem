@@ -1,0 +1,32 @@
+Caminho de: A para B é:
+A B 
+Caminho de: A para C é:
+A B C 
+Caminho de: A para D é:
+A B D 
+Caminho de: B para A é:
+B A 
+Caminho de: B para C é:
+B C 
+Caminho de: B para D é:
+B D 
+Caminho de: C para A é:
+C B A 
+Caminho de: C para B é:
+C B 
+Caminho de: C para D é:
+C D 
+Caminho de: D para A é:
+D B A 
+Caminho de: D para B é:
+D B 
+Caminho de: D para C é:
+D C 
+Caminho de: E para A é:
+E D B A 
+Caminho de: E para B é:
+E D B 
+Caminho de: E para C é:
+E D C 
+Caminho de: E para D é:
+E D 

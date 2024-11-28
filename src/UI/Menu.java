@@ -15,7 +15,6 @@ public class Menu {
     //carregar dados  dos txt;
     private Grafo grafo = new Grafo();
     private GrafoMenu gm = new GrafoMenu(this);
-    private TrieMenu tm = new TrieMenu();
 
     public Menu() throws IOException {
 
@@ -28,7 +27,8 @@ public class Menu {
         switch (op){
             case 1:
                 this.carregarDados();
-                TrieMenu tm = new TrieMenu();
+                TrieMenu tm = new TrieMenu(this);
+                tm.desenharMenu();
                 break;
             case 2:
                 this.carregarDados();
@@ -37,16 +37,15 @@ public class Menu {
         }
     }
     public void carregarDados() throws IOException {
+        grafo = new Grafo(); // Reseta o grafo
         LeituraArquivo ler = new LeituraArquivo("src/assets/Rotas.txt");
-        //carregar rotas(grafo) e materias(arvore)
-        ler.carregarRotas(grafo);
+        ler.carregarRotas(grafo); // Carrega as rotas no novo grafo
+        System.out.println("Dados carregados com sucesso!");
     }
     public Grafo getRotas(){
         return grafo;
     }
-    public void setRotas(Grafo g){
-        this.grafo = g;
-    }
+
 
 
 }

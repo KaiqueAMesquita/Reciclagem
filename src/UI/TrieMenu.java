@@ -14,6 +14,13 @@ public class TrieMenu {
     int op;
     String palavra;
     Trie trie = new Trie();
+    private Menu menu;
+
+
+    public TrieMenu(Menu menu){
+        this.menu = menu;
+
+    }
 
     String caminhoLeitura = "src/assets/Materiais.txt";
     LeituraArquivo arqLeitura;
@@ -39,6 +46,7 @@ public class TrieMenu {
                     case 1:
                         palavra = JOptionPane.showInputDialog("Informe a palavra a ser removida:").toLowerCase();
                         trie.remove(palavra);
+                        this.desenharMenu();
                         break;
                     case 2:
                         palavra = JOptionPane.showInputDialog("Informe a palavra a ser buscada:").toLowerCase();
@@ -52,6 +60,7 @@ public class TrieMenu {
                         } else {
                             JOptionPane.showMessageDialog(null, "Palavra não encontrada!");
                         }
+                        this.desenharMenu();
                         break;
                     case 3:
                         palavra = JOptionPane.showInputDialog("Informe uma parte de uma palavra cadastrada:")
@@ -84,8 +93,11 @@ public class TrieMenu {
                         gravarArq.printf("%s", Relatorio);
 
                         arqEscrita.close();
+                        this.desenharMenu();
+
                         break;
                     case 5:
+                        menu.desenharMenu();
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "Opção inválida!");
@@ -94,9 +106,7 @@ public class TrieMenu {
             } while (op != 5);
         } catch (
                 IOException e) {
-            // TODO Auto-generated catch block
             System.out.println(e.getMessage());
-            ;
         }
     }
 }
