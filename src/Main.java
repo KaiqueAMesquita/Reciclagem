@@ -6,9 +6,11 @@ import java.util.*;
 import Arquivo.LeituraArquivo;
 import Grafo.*;
 
+import javax.swing.*;
+
 public class Main {
     public static void main(String[] args) {
-    Grafo grafo = new Grafo(5,7);
+    Grafo grafo = new Grafo();
 
         Vertice a = new Vertice("A");
         Vertice b = new Vertice("B");
@@ -30,6 +32,7 @@ public class Main {
         grafo.addAresta("RUA S", c, d, 1);
         grafo.addAresta("RUA Chama", d, e, 3);
         grafo.addAresta("RUA Vartor", c, e, 7);
-    grafo.desenharGrafo();
+        JOptionPane.showMessageDialog(null, grafo.gerarRelatorioDeRotas());
+        grafo.desenharGrafo();
     }
 }

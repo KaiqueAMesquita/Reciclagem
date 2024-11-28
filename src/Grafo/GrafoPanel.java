@@ -2,6 +2,7 @@ package Grafo;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GrafoPanel extends JPanel {
@@ -17,11 +18,11 @@ public class GrafoPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Aresta[] as = grafo.getArestas();
-        Vertice[] vs = grafo.getVertices();
+        ArrayList<Aresta> as = grafo.getArestas();
+        ArrayList<Vertice> vs = grafo.getVertices();
 
-        int[] posX = new int[vs.length];
-        int[] posY = new int[vs.length];
+        int[] posX = new int[vs.size()];
+        int[] posY = new int[vs.size()];
 
         Random rand = new Random();
         Graphics2D g2 = (Graphics2D) g;
@@ -35,8 +36,8 @@ public class GrafoPanel extends JPanel {
         Font myFont = new Font ("Courier New", 1, 14);
         Font myFont2 = new Font ("Consolas", 2, 17);
 
-        for(int i = 0; i < vs.length;i++){
-            double angulo = 2 * Math.PI * i / vs.length;
+        for(int i = 0; i < vs.size();i++){
+            double angulo = 2 * Math.PI * i / vs.size();
 
             int x = xCentral + (int) (raio * Math.cos(angulo)) - verT / 2;
             int y = yCentral + (int) (raio * Math.sin(angulo)) - verT / 2;
@@ -49,8 +50,8 @@ public class GrafoPanel extends JPanel {
             int idx1 = grafo.getIndice(a.getOrigem());
             int idx2 = grafo.getIndice(a.getDestino());
 
-            double angulo1 = 2 * Math.PI * idx1 / vs.length;
-            double angulo2 = 2 * Math.PI * idx2 / vs.length;
+            double angulo1 = 2 * Math.PI * idx1 / vs.size();
+            double angulo2 = 2 * Math.PI * idx2 / vs.size();
 
 
             int x1 = xCentral + (int) (raio * Math.cos(angulo1));
@@ -77,14 +78,14 @@ public class GrafoPanel extends JPanel {
 
         }
 
-        for(int i = 0; i < vs.length;i++){
+        for(int i = 0; i < vs.size();i++){
 
            g.fillOval(posX[i], posY[i],verT,verT);g.setColor(Color.BLACK);
            g.fillOval(posX[i] - 4, posY[i] - 4, verT + 8, verT + 8);
            g.setColor(Color.BLUE);
            g.fillOval(posX[i], posY[i], verT, verT);
             g2.setFont (myFont);
-            g.drawString(vs[i].getValor(), posX[i] + verT + 5, posY[i] + verT + 5);
+            g.drawString(vs.get(i).getValor(), posX[i] + verT + 5, posY[i] + verT + 5);
         }
 
         for(Aresta a: as){
@@ -92,8 +93,8 @@ public class GrafoPanel extends JPanel {
             int idx1 = grafo.getIndice(a.getOrigem());
             int idx2 = grafo.getIndice(a.getDestino());
 
-            double angulo1 = 2 * Math.PI * idx1 / vs.length;
-            double angulo2 = 2 * Math.PI * idx2 / vs.length;
+            double angulo1 = 2 * Math.PI * idx1 / vs.size();
+            double angulo2 = 2 * Math.PI * idx2 / vs.size();
 
 
             int x1 = xCentral + (int) (raio * Math.cos(angulo1));

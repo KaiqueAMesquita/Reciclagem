@@ -9,7 +9,7 @@ import Grafo.Vertice;
 public class aStar {
     public static void main(String[] args) {
         // Criação do grafo
-        Grafo grafo = new Grafo(5, 6);
+        Grafo grafo = new Grafo();
 
         // Criação dos vértices
         Vertice a = new Vertice("A");
