@@ -330,4 +330,13 @@ public class Grafo {
         }
         return -1;
     }
+
+    public Vertice getVerticePorValor(String nome){
+        for(Vertice v : vertices){
+            if(v.getValor() == nome){
+                return v;
+            }
+        }
+        return null;
+    }
 }

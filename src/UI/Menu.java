@@ -3,20 +3,22 @@ package UI;
 import Arquivo.LeituraArquivo;
 import Arvore.Trie;
 import Grafo.Grafo;
+import Info.Material;
+import UI.GrafoMenu;
+import UI.TrieMenu;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.List;
 
 public class Menu {
     //carregar dados  dos txt;
-    private Grafo grafo;
-    private Trie trie;
+    private Grafo grafo = new Grafo();
+    private GrafoMenu gm = new GrafoMenu(this);
+    private TrieMenu tm = new TrieMenu();
 
     public Menu() throws IOException {
-        boolean r = true;
-        do{
-           this.desenharMenu();
-        }while(r = true);
+
     }
 
     public void desenharMenu() throws IOException {
@@ -26,17 +28,18 @@ public class Menu {
         switch (op){
             case 1:
                 this.carregarDados();
-                GrafoMenu gm = new GrafoMenu();
+                TrieMenu tm = new TrieMenu();
                 break;
             case 2:
                 this.carregarDados();
-                TrieMenu tm = new TrieMenu();
+                gm.desenharMenu();
                 break;
         }
     }
     public void carregarDados() throws IOException {
         LeituraArquivo ler = new LeituraArquivo("src/assets/Rotas.txt");
-       //carregar rotas(grafo) e materias(arvore)
+        //carregar rotas(grafo) e materias(arvore)
+        ler.carregarRotas(grafo);
     }
     public Grafo getRotas(){
         return grafo;
@@ -44,14 +47,6 @@ public class Menu {
     public void setRotas(Grafo g){
         this.grafo = g;
     }
-    public Trie getMateriais(){
-        return trie;
-
-    }
-    public void setMateriais(Trie t){
-        this.trie = t;
-    }
-
 
 
 }
