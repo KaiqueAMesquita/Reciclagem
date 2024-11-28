@@ -333,7 +333,7 @@ public class Grafo {
 
     public Vertice getVerticePorValor(String nome){
         for(Vertice v : vertices){
-            if(v.getValor() == nome){
+            if(v.getValor().equals(nome)){
                 return v;
             }
         }

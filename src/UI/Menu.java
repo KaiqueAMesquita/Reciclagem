@@ -15,7 +15,6 @@ public class Menu {
     //carregar dados  dos txt;
     private Grafo grafo = new Grafo();
     private GrafoMenu gm = new GrafoMenu(this);
-    private TrieMenu tm = new TrieMenu();
 
     public Menu() throws IOException {
 
@@ -28,7 +27,8 @@ public class Menu {
         switch (op){
             case 1:
                 this.carregarDados();
-                TrieMenu tm = new TrieMenu();
+                TrieMenu tm = new TrieMenu(this);
+                tm.desenharMenu();
                 break;
             case 2:
                 this.carregarDados();
@@ -39,14 +39,13 @@ public class Menu {
     public void carregarDados() throws IOException {
         LeituraArquivo ler = new LeituraArquivo("src/assets/Rotas.txt");
         //carregar rotas(grafo) e materias(arvore)
+        grafo = new Grafo();
         ler.carregarRotas(grafo);
     }
     public Grafo getRotas(){
         return grafo;
     }
-    public void setRotas(Grafo g){
-        this.grafo = g;
-    }
+
 
 
 }

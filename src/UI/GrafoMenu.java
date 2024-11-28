@@ -28,10 +28,16 @@ public class GrafoMenu {
                 String v1 = JOptionPane.showInputDialog("Deseja buscar uma rota:\n De onde quer iniciar?");
                 String v2 = JOptionPane.showInputDialog("\n Até onde quer sair?");
 
+                if(v1 == null || v2 == null){
+                     v1 = JOptionPane.showInputDialog("Deseja buscar uma rota(use uma rota válida):\n De onde quer iniciar?");
+                     v2 = JOptionPane.showInputDialog("\n Até onde quer sair?");
+                }
+
                 Vertice start = menu.getRotas().getVerticePorValor(v1);
                 Vertice objetivo = menu.getRotas().getVerticePorValor(v2);
 
                 JOptionPane.showMessageDialog(null,menu.getRotas().rotaDeReciclagemString(start,objetivo));
+                this.desenharMenu();
                 break;
             case 4:
                 menu.getRotas().desenharGrafo();
