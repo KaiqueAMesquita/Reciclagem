@@ -1,5 +1,7 @@
 package Arquivo;
 
+import Grafo.*;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -64,7 +66,7 @@ public class LeituraArquivo {
                 }
 
             }else{
-                System.out.println("Linha ignorada, formato incorreto: " + linha + "\n");
+                System.out.println("Linha invalida, formato incorreto: " + linha + "\n");
             }
 
 
@@ -74,4 +76,53 @@ public class LeituraArquivo {
 
     }
 
+    public void carregarRotas(Grafo grafo) throws IOException{
+        String linha;
+
+        while((linha = getLinha()) != null){
+            String[] partes = linha.split(";");
+
+            if(partes.length == 4){
+                String rua = partes[0].trim();
+                String origem = partes[1].trim();
+                String destino = partes[2].trim();
+                int distancia;
+                distancia = Integer.parseInt(partes[3]);
+
+
+                Vertice vOrigem = null;
+                Vertice vDestino = null;
+
+                for(int i = 0; i < grafo.getVertices().length; i++){
+                    Vertice vT = grafo.getVertice(i);
+                    if(vT != null && vT.getValor().equals(origem)){
+                        vOrigem = vT;
+                    }
+                    if(vT != null && vT.getValor().equals(destino)){
+                        vDestino = vT;
+                    }
+                    if(vOrigem != null && vDestino != null){
+                        break;
+                    }
+                }
+
+                if(vOrigem == null){
+                    grafo.addVertice(origem);
+                    vOrigem = grafo.getVertice(grafo.getIndice(new Vertice(origem)));
+
+                }
+                if(vDestino == null){
+                    grafo.addVertice(destino);
+                    vDestino = grafo.getVertice(grafo.getIndice(new Vertice(destino)));
+
+                }
+
+                grafo.addAresta(rua, vOrigem, vDestino, distancia);
+            }else{
+                System.out.println("Linha invalida, formato incorreto" + linha + "\n");
+            }
+
+
+        }
+    }
 }

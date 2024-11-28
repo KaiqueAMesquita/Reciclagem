@@ -1,1 +1,5 @@
-Origem;Destino;Distancia
+Rua Jose;A;B;5
+Rua Kaique;B;C;10
+Rua Lucas;C;D;7
+Rua Gustavo;A;D;15
+Rua Luiz;D;B;8

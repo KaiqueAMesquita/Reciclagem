@@ -13,6 +13,8 @@ import java.util.Set;
 
 import org.w3c.dom.Node;
 
+import javax.swing.*;
+
 public class Grafo {
     private Vertice[] vertices;
     private Aresta[] arestas;
@@ -46,27 +48,28 @@ public class Grafo {
 
         }
     }
-    // public ArrayList<Vertice> vizinhos(Vertice v){
-    // ArrayList<Vertice> vizinhos = new ArrayList<Vertice>();
-    // for(int i = 0; i < numVertices; i++){
-    // for(int j = 0; j < numArestas;j++){
-    // if(!arestas[j].getOrigem().equals(arestas[j].getDestino())){
+    public ArrayList<Vertice> vizinhos(Vertice v){
+        ArrayList<Vertice> vizinhos = new ArrayList<Vertice>();
+        for(int i = 0; i < numVertices; i++){
+            for(int j = 0; j < numArestas;j++){
+                if(!arestas[j].getOrigem().equals(arestas[j].getDestino())){
 
-    // if(v.equals(arestas[j].getOrigem()) &&
-    // !vizinhos.contains(arestas[j].getDestino())){
-    // vizinhos.add(arestas[j].getDestino());
-    // }else if(v.equals(arestas[j].getDestino()) &&
-    // !vizinhos.contains(arestas[j].getOrigem())){
-    // vizinhos.add(arestas[j].getOrigem());
+                    if(v.equals(arestas[j].getOrigem()) &&
+                            !vizinhos.contains(arestas[j].getDestino())){
+                        vizinhos.add(arestas[j].getDestino());
+                    }else if(v.equals(arestas[j].getDestino()) &&
+                            !vizinhos.contains(arestas[j].getOrigem())){
+                        vizinhos.add(arestas[j].getOrigem());
 
-    // }
-    // }
-    // }
+                    }
+                }
+            }
 
-    // }
-    // return vizinhos;
+        }
+        return vizinhos;
 
-    // }
+    }
+
 
     public boolean eVizinho(Vertice v1, Vertice v2) {
         for (int i = 0; i < numArestas; i++) {
@@ -86,11 +89,11 @@ public class Grafo {
 
         Map<Vertice, Integer> heuristica = new HashMap<>();
         for (Vertice v : vertices) {
-            if (eVizinho(start, v)) {
-                heuristica.put(v, 2);
-            } else {
-                heuristica.put(v, 1);
-            }
+//            if (eVizinho(start, v)) {
+//                heuristica.put(v, 2);
+//            } else {
+//                heuristica.put(v, 1);
+//            }
 
         }
 
@@ -174,4 +177,65 @@ public class Grafo {
         }
         return caminho;
     }
+
+//    public void desenharGrafo() {
+//        GrafoPanel p = new GrafoPanel(this);
+//        JFrame f = new JFrame();
+//        f.setTitle( "Desenhando em Java" );
+//        f.setContentPane( p );
+//        f.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+//        f.pack();
+//        f.setLocationRelativeTo( f );
+//        f.setVisible( true );
+//    }
+
+    public Vertice[] getVertices() {
+        return this.vertices;
+    }
+
+    public Aresta[] getArestas(){
+        return this.arestas;
+    }
+    public Vertice getVertice(int i){
+        return this.vertices[i];
+    }
+
+    public Aresta[] encontrarAresta(Vertice v1) {
+        ArrayList<Aresta> arestas1 = new ArrayList<Aresta>();
+
+        for (int i = 0; i < this.arestas.length; i++)
+            if (this.arestas[i].getOrigem().equals(v1)) {
+                arestas1.add(this.arestas[i]);
+
+            } else if (this.arestas[i].getDestino().equals(v1)) {
+                arestas1.add(this.arestas[i]);
+            }
+
+        return arestas1.toArray(new Aresta[0]);
+    }
+
+    public Aresta[] encontrarAresta(Vertice v1, Vertice v2) {
+        ArrayList<Aresta> arestas1 = new ArrayList<Aresta>();
+
+        for (int i = 0; i < this.arestas.length; i++)
+            if (this.arestas[i].getOrigem().equals(v1) && this.arestas[i].getDestino().equals(v2)) {
+                arestas1.add(this.arestas[i]);
+
+            } else if (this.arestas[i].getOrigem().equals(v2) && this.arestas[i].getDestino().equals(v1)) {
+
+
+                arestas1.add(this.arestas[i]);
+            }
+
+        return arestas1.toArray(new Aresta[0]);
+    }
+    public int getIndice(Vertice v){
+        for(int i = 0; i < this.vertices.length;i++){
+            if(v.getValor() == vertices[i].getValor()){
+                return i;
+            }
+        }
+        return -1;
+    }
+
 }
